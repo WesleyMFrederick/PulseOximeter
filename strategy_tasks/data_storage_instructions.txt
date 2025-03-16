@@ -1,24 +1,58 @@
 # Data Storage Instructions
 
 ## Objective
-Implement the ability to store recorded session data locally on the device.
+Implement the ability to store recorded pulse oximeter session data locally on the device using Core Data.
 
 ## Context
-The application needs to store recorded session data locally on the device. This involves associating timestamp information with readings and implementing session management functionality.
+The application needs to store two types of pulse oximeter data:
+1. Parameter readings (SpO2, heart rate, perfusion index) - low frequency, essential clinical data
+2. Waveform readings (PPG values, SpO2 wave) - high frequency visualization data
+
+This implementation involves creating a Core Data model, persistence management, buffered storage for optimal performance, and session management functionality.
 
 ## Dependencies
-- None
+- BluetoothManager.swift for data acquisition
+- ContentView.swift for UI integration
 
 ## Steps
-1. Implement a local database to store recorded session data.
-2. Implement the functionality to associate timestamp information with readings.
-3. Implement session management functionality.
+1. Create Core Data model with the following entities:
+   - Recording: session metadata (id, name, timestamps, device info)
+   - ParamReading: clinical data (timestamp, heartRate, spo2, perfusionIndex)
+   - WaveReading: waveform data (timestamp, ppgValue, spo2WaveValue, sensorOff)
+
+2. Implement PersistenceController.swift:
+   - Core Data stack initialization
+   - Background context management
+   - Performance optimization
+
+3. Implement RecordingManager.swift:
+   - Recording session creation, naming, and metadata
+   - Buffered storage for high-frequency data
+   - Periodic flushing to persistent storage
+   - Background processing to prevent UI blocking
+   - Recording management (start/stop/rename/delete)
+
+4. Extend BluetoothManager for integration:
+   - Add publishers for parameter and waveform readings
+   - Connect data parsing to storage pipeline
+
+5. Create UI components:
+   - RecordingsListView for browsing saved recordings
+   - RecordingDetailView for viewing recording details and metrics
+   - Summary statistics and data visualization
+
+6. Update existing UI to integrate storage functionality:
+   - Add recording controls to ContentView
+   - Link with RecordingManager
 
 ## Expected Output
-- Store recorded session data locally on the device.
-- Associate timestamp information with readings.
-- Implement session management functionality.
+- Complete Core Data implementation for pulse oximeter data
+- Efficient storage of both parameter and waveform data
+- UI for creating, viewing, and managing recordings
+- Statistical summary of recordings (averages, min/max values)
 
 ## Notes
-- Consider using Core Data or SQLite for local data storage.
-- Ensure the data is stored securely.
+- Optimize for performance with buffered storage approach
+- Use background contexts for database operations to prevent UI freezing
+- Consider implementing wave data downsampling option for extended recordings
+- Ensure proper resource management for memory efficiency

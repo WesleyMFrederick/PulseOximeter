@@ -1,10 +1,13 @@
 # Changelog
 
-- 2025-03-15: Transitioned to Strategy phase.
-- 2025-03-15: Created task instruction files for: Device Scanning and Connection, Recording Start/Stop Functionality, Real-time Data Display, Data Storage, Data Visualization, and Recording Management.
-- 2025-03-15: Prioritized tasks: Device Scanning and Connection, Recording Start/Stop Functionality, Real-time Data Display, Data Storage, Data Visualization, and Recording Management.
-- 2025-03-15: Completed Strategy Phase - Tasks Planned.
+- 2025-03-16 16:05: Developed comprehensive data storage strategy.
+    - Description: Created detailed architecture for pulse oximeter data storage using Core Data, designing a model with Recording, ParamReading, and WaveReading entities. Developed technical specifications for PersistenceController, RecordingManager, and UI components to manage recordings.
+    - Reason: To enable persistent storage of pulse oximeter readings with efficient handling of both clinical parameter data and high-frequency waveform data.
+    - Affected files: strategy_tasks/data_storage_instructions.txt, cline_docs/activeContext.md
 
-- 2025-03-15: Initialized core files (projectbrief.md, productContext.md, activeContext.md, changelog.md) and created dependency trackers (dependency_tracker.md, doc_tracker.md). Reason: Project setup. Affected files: All core files.
-- 2025-03-15: Populated doc_tracker.md with verified no dependencies. Reason: Initial setup. Affected files: doc_tracker.md.
-- 2025-03-15: Populated dependency_tracker.md with verified no dependencies. Reason: Initial setup. Affected files: dependency_tracker.md.
+- 2025-03-16 15:33: Implemented data parsing for Bluetooth pulse oximeter data.
+    - Description: Removed the placeholder data and timer from `BluetoothManager.swift`.
+    - Reason: To ensure the UI displays the parsed values from the Bluetooth device.
+    - Affected files: src/BluetoothManager.swift, cline_docs/activeContext.md
+
+# Previous entries remain unchanged
