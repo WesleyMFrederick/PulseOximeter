@@ -1,0 +1,24 @@
+# Recording Management Instructions
+
+## Objective
+Implement an interface to view session history and functionality to delete and archive sessions.
+
+## Context
+The application needs to provide an interface to view session history and functionality to delete and archive sessions. This involves implementing session management functionality and a search capability to find sessions by date.
+
+## Dependencies
+- None
+
+## Steps
+1. Implement an interface to view session history.
+2. Implement functionality to delete and archive sessions.
+3. Implement a search capability to find sessions by date.
+
+## Expected Output
+- Interface to view session history.
+- Functionality to delete and archive sessions.
+- Search capability to find sessions by date.
+
+## Notes
+- Consider the user experience when designing the UI elements.
+- Ensure the data is displayed clearly and accurately.

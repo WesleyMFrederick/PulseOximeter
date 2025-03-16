@@ -1,0 +1,24 @@
+# Recording Start/Stop Functionality Instructions
+
+## Objective
+Implement clear UI controls to start and stop recording sessions.
+
+## Context
+The application needs to provide clear UI controls to start and stop recording sessions. This involves visual indicators showing recording status and a seamless transition between recording and visualization states.
+
+## Dependencies
+- None
+
+## Steps
+1. Implement UI controls to start and stop recording sessions.
+2. Implement visual indicators showing recording status.
+3. Implement seamless transition between recording and visualization states.
+
+## Expected Output
+- Clear UI controls to start and stop recording sessions.
+- Visual indicators showing recording status.
+- Seamless transition between recording and visualization states.
+
+## Notes
+- Consider the user experience when designing the UI controls.
+- Ensure the visual indicators are clear and easy to understand.

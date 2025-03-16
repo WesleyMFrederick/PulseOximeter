@@ -1,0 +1,24 @@
+# Device Scanning and Connection Instructions
+
+## Objective
+Implement the ability to discover and connect to the Wellue FS20F pulse oximeter.
+
+## Context
+The application needs to connect to the Wellue FS20F pulse oximeter via Bluetooth. This involves scanning for the device, managing existing connections, and displaying the connection status. The Core Bluetooth framework will be used for device connectivity.
+
+## Dependencies
+- None
+
+## Steps
+1. Implement Bluetooth scanning functionality to discover the Wellue FS20F pulse oximeter.
+2. Implement connection management functionality to connect to the discovered device.
+3. Implement connection status display to show the current connection status.
+
+## Expected Output
+- Ability to discover and connect to the Wellue FS20F pulse oximeter.
+- Management of existing connections.
+- Display connection status.
+
+## Notes
+- Ensure the app handles background/foreground transitions appropriately.
+- Consider battery efficiency in the implementation.

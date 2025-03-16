@@ -1,0 +1,22 @@
+# Data Visualization Instructions
+
+## Objective
+Implement the ability to visualize the recorded data for analysis.
+
+## Context
+The application needs to visualize the recorded data for analysis. This involves displaying the data in tabular format and line graphs.
+
+## Dependencies
+- None
+
+## Steps
+1. Implement a tabular display with datetime, SpO2 (%), and heart rate columns.
+2. Implement two line graphs (one for SpO2, one for heart rate) with time on the x-axis.
+
+## Expected Output
+- Tabular display with datetime, SpO2 (%), and heart rate columns.
+- Two line graphs (one for SpO2, one for heart rate) with time on the x-axis.
+
+## Notes
+- Consider using a charting library for the line graphs.
+- Ensure the data is displayed clearly and accurately.

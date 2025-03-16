@@ -1,0 +1,24 @@
+# Real-time Data Display Instructions
+
+## Objective
+Implement the ability to display current blood oxygen level (SpO2 as a percentage) and current heart rate in real-time while the device is connected.
+
+## Context
+The application needs to display the current blood oxygen level (SpO2 as a percentage) and current heart rate in real-time while the device is connected. This involves updating the UI with the latest data received from the pulse oximeter.
+
+## Dependencies
+- None
+
+## Steps
+1. Implement the UI elements to display the current blood oxygen level (SpO2 as a percentage) and current heart rate.
+2. Implement the functionality to update the UI with the latest data received from the pulse oximeter.
+3. Ensure the UI updates in real-time while the device is connected.
+
+## Expected Output
+- Display current blood oxygen level (SpO2 as a percentage).
+- Display current heart rate.
+- Update in real-time while device is connected.
+
+## Notes
+- Consider the user experience when designing the UI elements.
+- Ensure the UI updates are smooth and efficient.
