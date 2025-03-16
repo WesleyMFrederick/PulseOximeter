@@ -205,7 +205,7 @@ python -m cline_utils.dependency_system.dependency_processor get_char "pn5d2n" 3
 The MUP must be followed immediately after any state-changing action:
 1. **Update `activeContext.md`**: Summarize action, impact, and new state.
 2. **Update `changelog.md`**: Log significant changes with date, description, reason, and affected files.
-3. **Update `.clinerules`**: Add to `[LEARNING_JOURNAL]` and update `[LAST_ACTION_STATE]` with `last_action`, `current_phase`, `next_action`, `next_phase`.
+3. **Update `.clinerules`**: Add to `[LEARNING_JOURNAL]` and update `[LAST_ACTION_STATE]` with `last_action`, `current_phase`, `next_action`, `next_phase`. Use the format YYYY-MM-DD HH:MM for timestamps.
 4. **Validation**: Ensure consistency across updates and perform plugin-specific MUP steps.
 
 ---
