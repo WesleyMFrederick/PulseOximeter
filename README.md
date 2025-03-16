@@ -1,109 +1,86 @@
-# Cline Recursive Chain-of-Thought System (CRCT) - v7.0
+# Pulse Oximeter iOS App
 
-Welcome to the **Cline Recursive Chain-of-Thought System (CRCT)**, a framework designed to manage context, dependencies, and tasks in large-scale Cline projects within VS Code. Built for the Cline extension, CRCT leverages a recursive, file-based approach with a modular dependency tracking system to keep your project's state persistent and efficient, even as complexity grows.
+## Project Overview
+This iOS application connects to a Wellue Model FS20F Bluetooth pulse oximeter to record, visualize, and analyze blood oxygen levels and heart rate data. Designed primarily for surfing athletes during breath training sessions, this app addresses limitations in existing freediving applications by providing flexibility to record readings without preset routines.
 
-This is **v7.0**, a basic but functional release of an ongoing refactor to improve dependency tracking modularity. While the full refactor is still in progress (stay tuned!), this version offers a stable starting point for community testing and feedback. It includes base templates for all core files and the new `dependency_processor.py` script.
+## Purpose
+The application enables surfing athletes to:
+- Monitor blood oxygen saturation (SpO2) and heart rate in real-time
+- Record training sessions with accurate timestamped data
+- Review historical session data to track progress
+- Analyze performance patterns during breath training
 
----
+## Features
 
-## Key Features
+### Current Implementation
+- ✅ Bluetooth device scanning and connection
+- ✅ Real-time display of SpO2 and heart rate values
+- ✅ Recording start/stop functionality
+- ✅ Bluetooth protocol parsing for Wellue FS20F
 
-- **Recursive Decomposition**: Breaks tasks into manageable subtasks, organized via directories and files for isolated context management.
-- **Minimal Context Loading**: Loads only essential data, expanding via dependency trackers as needed.
-- **Persistent State**: Uses the VS Code file system to store context, instructions, outputs, and dependencies—kept up-to-date via a **Mandatory Update Protocol (MUP)**.
-- **Modular Dependency Tracking**: 
-  - `dependency_tracker.md` (module-level dependencies)
-  - `doc_tracker.md` (documentation dependencies)
-  - Mini-trackers (file/function-level within modules)
-  - Uses hierarchical keys and RLE compression for efficiency (~90% fewer characters vs. full names in initial tests).
-- **Phase-Based Workflow**: Operates in distinct phases—**Set-up/Maintenance**, **Strategy**, **Execution**—controlled by `.clinerules`.
-- **Chain-of-Thought Reasoning**: Ensures transparency with step-by-step reasoning and reflection.
+### In Progress
+- 🔄 Core Data implementation for persistent storage
+- 🔄 Recording management (browse, rename, delete sessions)
+- 🔄 Data visualization with line graphs
 
----
+### Planned Features
+- 📊 Enhanced data visualization with interactive controls
+- 🔍 Statistical analysis of training sessions
+- 🔄 Export functionality for sharing data
 
-## Quickstart
+## Technical Details
 
-1. **Clone the Repo**: 
-   ```bash
-   git clone https://github.com/RPG-fan/Cline-Recursive-Chain-of-Thought-System-CRCT-.git
-   cd Cline-Recursive-Chain-of-Thought-System-CRCT-
-   ```
+### Bluetooth Protocol
 
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
+The Wellue FS20F pulse oximeter communicates using a custom Bluetooth protocol with the following structure:
 
-3. **Set Up Cline Extension**:
-   - Open the project in VS Code with the Cline extension installed.
-   - Copy `cline_docs/prompts/core_prompt(put this in Custom Instructions).md` into the Cline system prompt field.
-
-4. **Start the System**:
-   - Type `Start.` in the Cline input to initialize the system.
-   - The LLM will bootstrap from `.clinerules`, creating missing files and guiding you through setup if needed.
-
-*Note*: The Cline extension’s LLM automates most commands and updates to `cline_docs/`. Minimal user intervention is required (in theory!).
-
----
-
-## Project Structure
-
+#### Message Format
+All messages follow this format:
 ```
-cline/
-│   .clinerules              # Controls phase and state
-│   README.md                # This file
-│   requirements.txt         # Python dependencies
-│
-├───cline_docs/              # Operational memory
-│   │   activeContext.md     # Current state and priorities
-│   │   changelog.md         # Logs significant changes
-│   │   productContext.md    # Project purpose and user needs
-│   │   progress.md          # Tracks progress
-│   │   projectbrief.md      # Mission and objectives
-│   │   dependency_tracker.md # Module-level dependencies
-│   │   ...                  # Additional templates
-│   └───prompts/             # System prompts and plugins
-│       core_prompt.md       # Core system instructions
-│       setup_maintenance_plugin.md
-│       strategy_plugin.md
-│       execution_plugin.md
-│
-├───cline_utils/             # Utility scripts
-│   └───dependency_system/
-│       dependency_processor.py # Dependency management script
-│
-├───docs/                    # Project documentation
-│   │   doc_tracker.md       # Documentation dependencies
-│
-├───src/                     # Source code root
-│
-└───strategy_tasks/          # Strategic plans
+[Start Token (0xFE)] [Length] [Type] [Payload...] [Checksum]
 ```
 
----
+#### Parameter Message (Type 0x55)
+Contains clinical measurements including:
+- Heart rate (beats per minute)
+- SpO2 (oxygen saturation percentage)
+- Perfusion index (signal strength)
 
-## Current Status & Future Plans
+Parsing details:
+- Heart rate is encoded as a 16-bit value (little-endian)
+- SpO2 is a single byte percentage value
+- Perfusion index is a 16-bit value divided by 1000
 
-- **v7.0**: A basic, functional release with modular dependency tracking via `dependency_processor.py`. Includes templates for all `cline_docs/` files.
-- **Efficiency**: Achieves a ~1.9 efficiency ratio (90% fewer characters) for dependency tracking vs. full names—improving with scale.
-- **Ongoing Refactor**: I’m enhancing modularity and token efficiency further. The next version will refine dependency storage and extend savings to simpler projects.
+#### Waveform Message (Type 0x56)
+Contains high-frequency visualization data:
+- PPG (photoplethysmogram) waveform value
+- SpO2 waveform value
+- Sensor status flags
 
-Feedback is welcome! Please report bugs or suggestions via GitHub Issues.
+These messages arrive at approximately 60Hz and are used for continuous waveform visualization.
 
----
+### Data Architecture
 
-## Getting Started (Optional - Existing Projects)
+The application uses Core Data with a model comprising:
+- Recording entity: Session metadata (timestamps, name, device info)
+- ParamReading entity: Clinical metrics (SpO2, heart rate, perfusion index)
+- WaveReading entity: Waveform visualization data (PPG, SpO2 wave)
 
-To test on an existing project:
-1. Copy your project into `src/`.
-2. Use these prompts to kickstart the LLM:
-   - `Perform initial setup and populate dependency trackers.`
-   - `Review the current state and suggest next steps.`
+## Development Status
+This application is currently a proof of concept under active development. The foundational Bluetooth connectivity and data parsing are implemented, with data persistence and visualization features in progress.
 
-The system will analyze your codebase, initialize trackers, and guide you forward.
+## Technical Environment
+- Target device: iPhone running iOS 18.31
+- Development device: Macbook Air running macOS 14
+- Development tools:
+  - Xcode 16.1 (16B40)
+  - VS Code 1.98.1
+  - [Cline](https://github.com/cline/cline) with [CRCT](https://github.com/RPG-fan/Cline-Recursive-Chain-of-Thought-System-CRCT-) (Cline Recursive Chain of Thought) modification for AI-assisted development
+  - Python (for auxiliary development needs)
+- Hardware: Wellue Model FS20F pulse oximeter (Bluetooth-enabled, runs on 2 AAA batteries)
 
----
+## Future Development
+Future iterations will focus on enhancing the visualization capabilities, adding statistical analysis features, and potentially enabling remote sharing with coaches.
 
-## Thanks!
-
-This is a labor of love to make Cline projects more manageable. I’d love to hear your thoughts—try it out and let me know what works (or doesn’t)!
+## License
+[Include appropriate license information]
